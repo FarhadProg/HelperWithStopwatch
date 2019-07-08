@@ -13,20 +13,12 @@ namespace HelperWithStopwatch
         static void Main(string[] args)
         {
             HelperWithStopwatch.EnableDurationTrace = true;
-            Stopwatch sw = HelperWithStopwatch.CreateStopwatch();
-            if (sw != null)
-            {
-                sw.Start();
-                Thread.Sleep(500);
-                sw.Stop();
-                ILogService interf = new OurImplementationILogService();
-                interf = HelperWithStopwatch.Add(interf, sw);
-                interf.Error("Error");
-            }
-            else
-            {
-                Console.WriteLine("Замер времени не проводился");
-            }
+            ILogService interf = new OurImplementationILogService();
+            object timeMesureObj = HelperWithStopwatch.StartMeasure();
+            Thread.Sleep(500);
+            interf = HelperWithStopwatch.WithDuration(interf, timeMesureObj);
+            interf.Error("Error");
+            
 
             Console.ReadKey();
 

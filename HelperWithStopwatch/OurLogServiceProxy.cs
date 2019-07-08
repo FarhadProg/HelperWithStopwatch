@@ -6,8 +6,8 @@ namespace HelperWithStopwatch
 {
     public class OurLogServiceProxy : MarshalByRefObject, ILogService
     {
-        private ILogService _logService;
-        private string _duration;
+        private readonly ILogService _logService;
+        private readonly string _duration;
         public OurLogServiceProxy(ILogService logService, string duration)
         {
             _logService = logService;
