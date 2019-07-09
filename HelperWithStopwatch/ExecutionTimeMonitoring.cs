@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace HelperWithStopwatch
 {
-    static class HelperWithStopwatch
+    static class ExecutionTimeMonitoring
     {
         delegate Stopwatch SelectCreateStopwatchOrNull();
 
@@ -64,6 +64,7 @@ namespace HelperWithStopwatch
             Stopwatch sw = (Stopwatch) obj;
             if (sw != null)
             {
+                sw.Stop();
                 return Add(service, sw);
             }
             else
@@ -77,7 +78,7 @@ namespace HelperWithStopwatch
                     sw.Elapsed.Hours, sw.Elapsed.Minutes, sw.Elapsed.Seconds,
                     sw.Elapsed.Milliseconds);
 
-            return new OurLogServiceProxy(service, durationAdd);
+            return new ToSupplementDurationInMessage(service, durationAdd);
         }
     }
 

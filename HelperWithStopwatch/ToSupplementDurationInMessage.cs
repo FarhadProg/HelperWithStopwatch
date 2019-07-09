@@ -4,11 +4,11 @@ using Galaktika.ESB.Utils.LogService;
 
 namespace HelperWithStopwatch
 {
-    public class OurLogServiceProxy : MarshalByRefObject, ILogService
+    public class ToSupplementDurationInMessage : ILogService
     {
         private readonly ILogService _logService;
         private readonly string _duration;
-        public OurLogServiceProxy(ILogService logService, string duration)
+        public ToSupplementDurationInMessage(ILogService logService, string duration)
         {
             _logService = logService;
             _duration = duration;

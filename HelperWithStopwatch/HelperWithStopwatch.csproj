@@ -44,9 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HelperWithStopwatch.cs" />
+    <Compile Include="ExecutionTimeMonitoring.cs" />
     <Compile Include="ILogService.cs" />
-    <Compile Include="OurLogServiceProxy.cs" />
+    <Compile Include="ToSupplementDurationInMessage.cs" />
     <Compile Include="OurImplementationILogService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
