@@ -20,7 +20,7 @@ namespace HelperWithStopwatch
         /// <param name="args">Arguments to format.</param>
         public void Debug(string msg, params object[] args)
         {
-            _logService.Debug(msg+_duration, args);
+            _logService?.Debug(msg+_duration, args);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace HelperWithStopwatch
         /// <param name="args">Arguments to format.</param>
         public Exception Error(Exception e, string msg = null, params object[] args)
         {
-            return _logService.Error(e, msg + _duration, args);
+            return _logService.Error(e, msg, args);
         }
         /// <summary>
         /// Writes the diagnostic message at the <c>Error</c> level.
@@ -40,7 +40,7 @@ namespace HelperWithStopwatch
         /// <param name="args">Arguments to format.</param>
         public void Error(string msg, params object[] args)
         {
-            _logService.Error(msg + _duration, args);
+           _logService?.Error(msg + _duration, args);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace HelperWithStopwatch
         /// <param name="args">Arguments to format.</param>
         public Exception Fatal(Exception e, string msg = null, params object[] args)
         {
-            return _logService.Fatal(e, msg + _duration, args);
+            return _logService.Fatal(e, msg, args);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace HelperWithStopwatch
         /// <param name="args">Arguments to format.</param>
         public void Fatal(string msg, params object[] args)
         {
-            _logService.Fatal(msg + _duration, args);
+            this?._logService?.Fatal(msg + _duration, args);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace HelperWithStopwatch
         /// <param name="args">Arguments to format.</param>
         public void Info(string msg, params object[] args)
         {
-            _logService.Info(msg + _duration, args);
+            _logService?.Info(msg + _duration, args);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace HelperWithStopwatch
         /// <param name="e">Exception</param>
         public void Throw(Exception e)
         {
-            _logService.Throw(e);
+            _logService?.Throw(e);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace HelperWithStopwatch
         /// <param name="args">Arguments to format.</param>
         public void Trace(string msg, params object[] args)
         {
-            _logService.Trace(msg + _duration, args);
+            _logService?.Trace(msg + _duration, args);
         }
         /// <summary>
         /// Writes the diagnostic message at the <c>Warn</c> level.
@@ -99,7 +99,7 @@ namespace HelperWithStopwatch
         /// <param name="args">Arguments to format.</param>
         public void Warn(string msg, params object[] args)
         {
-            _logService.Warn(msg + _duration, args);
+            _logService?.Warn(msg + _duration, args);
         }
 
     }

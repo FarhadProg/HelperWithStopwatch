@@ -10,76 +10,34 @@ namespace HelperWithStopwatch
 {
     static class ExecutionTimeMonitoring
     {
-        delegate Stopwatch SelectCreateStopwatchOrNull();
 
-        private static SelectCreateStopwatchOrNull _selector = ReturnNull;
 
-        private static bool _enableDurationTrace;
+        public static bool EnableDurationTrace {get; set; }
 
-        public static bool EnableDurationTrace
+        public static Stopwatch StartMeasure()
         {
-            get { return _enableDurationTrace; }
-            set
-            {
-                _enableDurationTrace = value;
-                if (_enableDurationTrace)
-                    _selector = ReturnStopwatch;
-                else
-                    _selector = ReturnNull;
-
-
-            }
-        }
-        private static string _enableDurationTraceKey;
-
-        
-        private static Stopwatch CreateStopwatch()
-        {
-            return _selector();
-        }
-
-        private static Stopwatch ReturnStopwatch()
-        {
-            return new Stopwatch();
-        }
-
-        private static Stopwatch ReturnNull()
-        {
-            return (null);
-        }
-
-        public static object StartMeasure()
-        {
-            Stopwatch sw = CreateStopwatch();
-            if (sw != null)
+            Stopwatch sw = new Stopwatch();
+            if (EnableDurationTrace)
             {
                 sw.Start();
+                
             }
-
-            return (object)sw;
-
+            return sw;
         }
-        public static ILogService WithDuration(this ILogService service, object obj)
+        public static ILogService WithDuration(this ILogService service, Stopwatch sw)
         {
-            Stopwatch sw = (Stopwatch) obj;
-            if (sw != null)
+            if (service != null && sw!= null && sw.IsRunning)
             {
                 sw.Stop();
-                return Add(service, sw);
+                return new ToSupplementDurationInMessage(service, String.Format(" Duration:[{0:00}:{1:00}:{2:00}.{3:00}]", sw.Elapsed.Hours,
+                    sw.Elapsed.Minutes, sw.Elapsed.Seconds, sw.Elapsed.Milliseconds));
             }
             else
             {
                 return service;
-            }   
+            }
         }
-        private static ILogService Add(this ILogService service, Stopwatch sw)
-        {
-            string durationAdd = String.Format(" Duration:[{0:00}:{1:00}:{2:00}.{3:00}]",
-                    sw.Elapsed.Hours, sw.Elapsed.Minutes, sw.Elapsed.Seconds,
-                    sw.Elapsed.Milliseconds);
 
-            return new ToSupplementDurationInMessage(service, durationAdd);
-        }
     }
 
 }

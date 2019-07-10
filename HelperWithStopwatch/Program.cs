@@ -12,23 +12,19 @@ namespace HelperWithStopwatch
     {
         static void Main(string[] args)
         {
-            ExecutionTimeMonitoring.EnableDurationTrace = true;
+            ExecutionTimeMonitoring.EnableDurationTrace = false;
             ILogService interf = new OurImplementationILogService();
-            object timeMesureObj = ExecutionTimeMonitoring.StartMeasure();
+            
+            Stopwatch sw = ExecutionTimeMonitoring.StartMeasure();
+
             Thread.Sleep(500);
-            interf = ExecutionTimeMonitoring.WithDuration(interf, timeMesureObj);
-            interf.Error("Error");
-            Thread.Sleep(500);
-            interf = ExecutionTimeMonitoring.WithDuration(interf, timeMesureObj);
-            interf.Error("Error");
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            Thread.Sleep(500);
-            sw.Stop();
-            Console.WriteLine("Первый стоп: {0}", sw.Elapsed.Milliseconds);
-            Thread.Sleep(500);
-            sw.Stop();
-            Console.WriteLine("Второй стоп: {0}", sw.Elapsed.Milliseconds);
+            interf = null;
+            interf.WithDuration(sw).Error("error");
+
+
+
+
+
             Console.ReadKey();
 
         }
